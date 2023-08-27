@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    margin: 10px;
+    padding: 10px;
+    margin: 5vh auto;
+    width: 69vw;
+    height: auto;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.answer{
+    font-size: 1rem;
+    width: 60vw;
+    padding: .5rem;
+    margin: 1vh auto;
+    color: #1ae535dd;
+}
+
+.heading{
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 2vh auto;
+    color: #fff;
+}

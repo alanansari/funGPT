@@ -1,0 +1,13 @@
+.cntr{
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://devalan.tech/img/bg1.jpg');
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
