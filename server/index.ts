@@ -19,7 +19,7 @@ app.use(cors(
 
 const limiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 5 minutes
-	max: Number(process.env.MAXREQ), // limit each IP to 3 requests per windowMs
+	max: Number(process.env.MAXREQ),
 	standardHeaders: true,
 	legacyHeaders: false,
 });
@@ -30,6 +30,15 @@ app.use(limiter);
 app.get('/customgpt', async (req:any, res:any) => {
     try {
         const { character, question } = req.query;
+
+        const headers = {
+            'Content-Type': 'text/event-stream',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache'
+        };
+
+        res.writeHead(200, headers);
+        
     
         const stream = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
@@ -38,8 +47,10 @@ app.get('/customgpt', async (req:any, res:any) => {
         });
         for await (const part of stream) {
             process.stdout.write(part.choices[0]?.delta?.content || '');
-            res.write(part.choices[0]?.delta?.content || '');
+            res.write(`data: ${part.choices[0]?.delta?.content || ''}\n\n`);
         }
+
+        res.write(`data: ${'END'}\n\n`);
 
         res.end();
     } catch (error) {
