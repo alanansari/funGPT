@@ -71,6 +71,9 @@ const Form = () => {
             <option value="voldemort">Voldemort</option>
             <option value="quagmire">Glenn Quagmire</option>
             <option value="madara">Madara Uchiha</option>
+            <option value="rick sanchez">Rick Sanchez</option>
+            <option value="michael scott">Michael Scott</option>
+            <option value="hulk">Hulk</option>
         </Select>
         <Input 
             value={input} 
