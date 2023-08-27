@@ -19,7 +19,7 @@ app.use(cors(
 
 const limiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 5 minutes
-	max: process.env.MAXREQ, // limit each IP to 3 requests per windowMs
+	max: Number(process.env.MAXREQ), // limit each IP to 3 requests per windowMs
 	standardHeaders: true,
 	legacyHeaders: false,
 });
@@ -27,7 +27,7 @@ const limiter = rateLimit({
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
 
-app.get('/customgpt', async (req, res) => {
+app.get('/customgpt', async (req:any, res:any) => {
     try {
         const { character, question } = req.query;
     
