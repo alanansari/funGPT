@@ -35,15 +35,15 @@ const Form = () => {
         axios.get('https://fungptserver.devalan.tech/customgpt?'+new URLSearchParams(
             {question: input, character: dropvalue}
         )).then((res) => {
-            console.log(res.data);
-            setAnswer(res.data);
+            console.log(res?.data||"Something went wrong");
+            setAnswer(res?.data||"Something went wrong");
             setLoading(false);
         }
         ).catch((err) => {
             console.log(err);
             setLoading(false);
             toast({
-                title: err.response?.data || "Internal Server Error",
+                title: err?.response?.data || "Internal Server Error",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
