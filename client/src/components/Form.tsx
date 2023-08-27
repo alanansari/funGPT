@@ -33,7 +33,7 @@ const Form = () => {
         setLoading(true);
         setAnswer('');
 
-        const sse = new EventSource('http://localhost:8000/customgpt?'+new URLSearchParams(
+        const sse = new EventSource('https://fungptserver.devalan.tech/customgpt?'+new URLSearchParams(
             {question: input, character: dropvalue}
         ));
 
