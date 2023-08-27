@@ -1,4 +1,5 @@
-import express from 'express';
+import express from 'express'
+import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import OpenAI from 'openai'
 import 'dotenv/config'
@@ -9,15 +10,22 @@ const openai = new OpenAI({
 
 const app = express();
 
+app.use(cors(
+    {
+        "origin": "*",
+        "methods": "GET",
+    }
+));
+
 const limiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 5 minutes
 	max: process.env.MAXREQ, // limit each IP to 3 requests per windowMs
 	standardHeaders: true,
 	legacyHeaders: false,
-})
+});
 
 // Apply the rate limiting middleware to all requests
-app.use(limiter)
+app.use(limiter);
 
 app.get('/customgpt', async (req, res) => {
     try {
