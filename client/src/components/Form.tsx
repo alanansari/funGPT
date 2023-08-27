@@ -8,7 +8,6 @@ import {
 import './Form.css'
 import { useState } from 'react'
 import React from 'react'
-import axios from 'axios'
 
 const Form = () => {
 
@@ -32,23 +31,38 @@ const Form = () => {
 
     const handleSubmit = () => {
         setLoading(true);
-        axios.get('https://fungptserver.devalan.tech/customgpt?'+new URLSearchParams(
+        setAnswer('');
+
+        const sse = new EventSource('http://localhost:8000/customgpt?'+new URLSearchParams(
             {question: input, character: dropvalue}
-        )).then((res) => {
-            console.log(res?.data||"Something went wrong");
-            setAnswer(res?.data||"Something went wrong");
-            setLoading(false);
+        ));
+
+        sse.onopen = (e) => {
+            console.log(e);
         }
-        ).catch((err) => {
-            console.log(err);
+
+        sse.onmessage = (e) => {
+            const data = e.data;
+            if(data === 'END'){
+                setLoading(false);
+                sse.close();
+                return;
+            }
+            setAnswer(prevAnswer => prevAnswer + data);
+        }
+
+        sse.onerror = (e) => {
+            console.log(e);
             setLoading(false);
             toast({
-                title: err?.response?.data || "Internal Server Error",
+                title: "Error",
+                description: "Too many requests, please try again later",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
             })
-        })
+            sse.close();
+        }
     }
 
   return (
