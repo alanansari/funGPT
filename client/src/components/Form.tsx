@@ -6,8 +6,7 @@ import {
     useToast
 } from '@chakra-ui/react'
 import './Form.css'
-import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Form = () => {
 
@@ -74,7 +73,7 @@ const Form = () => {
          onChange={handleDrop}
          margin='3vh'
          placeholder="Select character" 
-         width='60%' 
+         width='65%' 
          size='md' 
          variant='filled'
          color='grey'
@@ -94,7 +93,7 @@ const Form = () => {
             onChange={handleInput} 
             margin='1vh auto 4vh' 
             placeholder="Write Your Question.." 
-            width='60%' 
+            width='65%' 
             size='md' 
             variant='filled'
             isRequired={true}

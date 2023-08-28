@@ -11,7 +11,7 @@
     margin: 10px;
     padding: 10px;
     margin: 5vh auto;
-    width: 69vw;
+    width: 65vw;
     height: auto;
 }
 
@@ -35,4 +35,16 @@
     font-weight: bold;
     margin: 2vh auto;
     color: #fff;
+}
+
+@media screen and (max-width: 768px){
+    .container{
+        width: 90vw;
+    }
+    .answer{
+        width: 85vw;
+    }
+    .heading{
+        font-size: 1.5rem;
+    }
 }
