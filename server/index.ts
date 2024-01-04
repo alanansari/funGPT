@@ -45,6 +45,7 @@ app.get('/customgpt', async (req:any, res:any) => {
             messages: [{ role: 'user', content: `You are ${character} answer this qustion as this character. ${question}. In 50 words.` }],
             stream: true,
         });
+        
         for await (const part of stream) {
             process.stdout.write(part.choices[0]?.delta?.content || '');
             res.write(`data: ${part.choices[0]?.delta?.content || ''}\n\n`);
