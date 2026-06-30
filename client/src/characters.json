@@ -1,0 +1,11 @@
+[
+  { "value": "yoda", "label": "Yoda" },
+  { "value": "winny the pooh", "label": "Winny The Pooh" },
+  { "value": "kermit the frog", "label": "Kermit The Frog" },
+  { "value": "voldemort", "label": "Voldemort" },
+  { "value": "quagmire", "label": "Glenn Quagmire" },
+  { "value": "madara", "label": "Madara Uchiha" },
+  { "value": "rick sanchez", "label": "Rick Sanchez" },
+  { "value": "michael scott", "label": "Michael Scott" },
+  { "value": "hulk", "label": "Hulk" }
+]

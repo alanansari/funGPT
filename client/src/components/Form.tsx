@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react'
 import './Form.css'
 import React, { useState } from 'react'
+import characters from '../characters.json'
 
 const Form = () => {
 
@@ -28,40 +29,45 @@ const Form = () => {
         setDropvalue(e.target.value);
     }
 
+    const showError = (description: string) => {
+        toast({
+            title: "Error",
+            description,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+        });
+    };
+
     const handleSubmit = () => {
+        const serverUrl = import.meta.env.VITE_SERVER_URL;
+        if (!serverUrl) {
+            showError("Server URL is not configured.");
+            return;
+        }
+
         setLoading(true);
         setAnswer('');
 
-        const sse = new EventSource(`https://fungptserver.devalan.tech/customgpt?`+new URLSearchParams(
-            {question: input, character: dropvalue}
-        ));
-
-        sse.onopen = (e) => {
-            console.log(e);
-        }
+        const sse = new EventSource(
+            serverUrl + '/customgpt?' + new URLSearchParams({ question: input, character: dropvalue })
+        );
 
         sse.onmessage = (e) => {
             const data = e.data;
-            if(data === 'END'){
+            if (data === 'END') {
                 setLoading(false);
                 sse.close();
                 return;
             }
             setAnswer(prevAnswer => prevAnswer + data);
-        }
+        };
 
-        sse.onerror = (e) => {
-            console.log(e);
+        sse.onerror = () => {
             setLoading(false);
-            toast({
-                title: "Error",
-                description: "Too many requests, please try again later",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            })
             sse.close();
-        }
+            showError("Something went wrong. Please try again later.");
+        };
     }
 
   return (
@@ -78,15 +84,9 @@ const Form = () => {
          variant='filled'
          color='grey'
          backgroundColor='#07070770' >
-            <option value="yoda">Yoda</option>
-            <option value="winny the pooh">Winny The Pooh</option>
-            <option value="kermit the frog">Kermit The Frog</option>
-            <option value="voldemort">Voldemort</option>
-            <option value="quagmire">Glenn Quagmire</option>
-            <option value="madara">Madara Uchiha</option>
-            <option value="rick sanchez">Rick Sanchez</option>
-            <option value="michael scott">Michael Scott</option>
-            <option value="hulk">Hulk</option>
+            {characters.map(c => (
+                <option key={c.value} value={c.value}>{c.label}</option>
+            ))}
         </Select>
         <Input 
             value={input} 
